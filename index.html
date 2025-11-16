@@ -38,7 +38,7 @@
 
     <!-- LOGO TENGAH -->
     <div class="text-center mb-8">
-      <img src="./assets/img/festara.png" class="w-48 h-48 mx-auto drop-shadow-lg" alt="Logo Festara"> 
+      <img src="./assets/img/festara.png" class="w-48 h-48 mx-auto drop-shadow-lg" alt="Logo Festara">
       <h1 class="text-3xl font-extrabold text-gray-800 mt-4">Registrasi Ulang Festara</h1>
       <p class="text-gray-600 text-sm mt-1">
         Masukkan nama untuk mengambil doorprize.
@@ -105,14 +105,16 @@
     function norm(s) { return (s || '').toString().trim().toLowerCase(); }
 
     async function findParticipantByName(name) {
-      const snaps = await getDocs(collection(db, 'participants'));
+      const snaps = await getDocs(collection(db, 'peserta'));  // ← ganti
       const nrm = norm(name);
       for (const s of snaps.docs) {
         const data = s.data();
-        if (norm(data.name) === nrm) return { id: s.id, data };
+        if (norm(data.nama) === nrm)  // admin.html pakai "nama", bukan "name"
+          return { id: s.id, data };
       }
       return null;
     }
+
 
     btnSearch.addEventListener('click', async () => {
       const name = elName.value.trim();
@@ -141,7 +143,7 @@
       <div id="card" class="p-5 bg-white/80 backdrop-blur border rounded-lg shadow">
         <div class="flex justify-between items-start">
           <div>
-            <div class="text-xl font-bold text-gray-800">${found.data.name}</div>
+            <div class="text-xl font-bold text-gray-800">${found.data.nama}</div>
             <div class="text-xs text-gray-500">ID: ${found.id}</div>
           </div>
           <div>
@@ -185,17 +187,20 @@
     }
 
     async function claimDoorprizeForParticipant(participantId) {
-      const pRef = doc(db, 'participants', participantId);
+      const pRef = doc(db, 'peserta', participantId);
       const pSnap = await getDoc(pRef);
       if (!pSnap.exists()) throw new Error('Data tidak ditemukan.');
 
       const pData = pSnap.data();
 
       if (pData.doorprize) {
-        document.getElementById('info').innerText =
-          '⚠️ Anda sudah pernah mengambil doorprize.';
-        alert('Anda sudah pernah mengambil doorprize.');
+        document.getElementById('info').innerHTML = `
+  <div class="p-3 bg-yellow-100 border border-yellow-300 rounded-lg text-yellow-700 font-semibold">
+    ⚠️ Anda sudah pernah mengambil doorprize.
+  </div>
+`;
         return;
+
       }
 
       const doorprizeAssigned = await runTransaction(db, async (tx) => {
