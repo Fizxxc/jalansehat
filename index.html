@@ -8,6 +8,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <link rel="stylesheet" href="/styles/style.css">
+  <style>
+    /* =====================
+   SPONSOR SLIDER
+   ===================== */
+.sponsor-slider {
+  width: max-content;
+  animation: slideLeft 15s linear infinite;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+  </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 min-h-screen">
 
@@ -18,11 +37,15 @@
       <p class="text-gray-600 text-sm mt-1">Masukkan nama untuk melakukan registrasi ulang.</p>
     </div>
 
-    <div class="bg-white/90 p-6 rounded-xl shadow-lg border border-gray-100">
+    <!-- FORM -->
+    <div class="bg-white/90 backdrop-blur p-6 rounded-xl shadow-xl border border-gray-100">
       <label class="block text-sm font-semibold text-gray-700">Nama lengkap</label>
       <div class="mt-2 flex gap-2">
-        <input id="searchName" class="flex-1 px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-400" placeholder="Contoh: Syarifah Puspita Sari" />
-        <button id="btnSearch" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow">Cari</button>
+        <input id="searchName" class="flex-1 px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-400"
+          placeholder="Contoh: Budi Setiawan" />
+        <button id="btnSearch" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow">
+          Cari
+        </button>
       </div>
 
       <div id="result" class="mt-5 hidden"></div>
