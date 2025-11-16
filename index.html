@@ -204,7 +204,7 @@
       }
 
       const doorprizeAssigned = await runTransaction(db, async (tx) => {
-        const q = query(collection(db, 'doorprizes'), where('assignedTo', '==', null), limit(10));
+        const q = query(collection(db, 'doorprizes'), where('assignedTo', '==', null), limit(1000));
         const qSnap = await tx.get(q);
         if (qSnap.empty) throw new Error('Doorprize habis.');
 
