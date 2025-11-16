@@ -6,49 +6,8 @@
   <title>Konfirmasi Peserta</title>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script type="module">
-    import { db } from "./firebase.js";
-    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const id = new URLSearchParams(location.search).get("id");
-    const namaEl = document.getElementById("nama");
-
-    async function loadData() {
-      const snap = await getDoc(doc(db, "peserta", id));
-      if (!snap.exists()) return;
-      namaEl.textContent = snap.data().nama;
-    }
-
-    loadData();
-
-    async function confirmPeserta() {
-      Swal.fire({
-        title: "Memproses...",
-        text: "Mohon tunggu",
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-      });
-
-      await updateDoc(doc(db, "peserta", id), {
-        status: "confirmed",
-        confirmedAt: new Date().toISOString()
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Berhasil!",
-        text: "Peserta telah dikonfirmasi",
-        timer: 1500,
-        showConfirmButton: false
-      });
-    }
-
-    window.confirmPeserta = confirmPeserta;
-  </script>
-
   <style>
     body { font-family: sans-serif; padding: 40px; }
-
     .card {
       max-width: 400px;
       margin: auto;
@@ -58,12 +17,10 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       animation: fadeIn .4s ease-out;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .btn {
       background: #3498db;
       color: white;
@@ -76,15 +33,57 @@
     }
     .btn:hover { background: #2980b9; transform: scale(1.03); }
   </style>
-
 </head>
 
 <body>
   <div class="card">
     <h2>Konfirmasi Peserta</h2>
     <p id="nama" style="margin-top: 10px; color: gray;">Memuat...</p>
-
     <button class="btn" onclick="confirmPeserta()">Konfirmasi</button>
   </div>
+
+  <!-- SCRIPT DIPINDAH KE BAWAH -->
+  <script type="module">
+    import { db } from "./firebase.js";
+    import { doc, getDoc, updateDoc } 
+      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const id = new URLSearchParams(location.search).get("id");
+
+    async function loadData(){
+      const snap = await getDoc(doc(db, "peserta", id));
+      if(!snap.exists()){
+        document.getElementById("nama").textContent = "Peserta tidak ditemukan";
+        return;
+      }
+
+      document.getElementById("nama").textContent = snap.data().nama;
+    }
+
+    window.onload = loadData;
+
+    window.confirmPeserta = async function(){
+      Swal.fire({
+        title: "Memproses...",
+        text: "Mohon tunggu",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      await updateDoc(doc(db,"peserta", id), {
+        status: "confirmed",
+        confirmedAt: new Date().toISOString()
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil!",
+        text: "Peserta telah dikonfirmasi",
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  </script>
+
 </body>
 </html>
