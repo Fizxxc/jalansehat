@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="id">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,27 +8,29 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
   <link rel="stylesheet" href="/styles/style.css">
   <style>
     /* =====================
    SPONSOR SLIDER
    ===================== */
-.sponsor-slider {
-  width: max-content;
-  animation: slideLeft 15s linear infinite;
-}
+    .sponsor-slider {
+      width: max-content;
+      animation: slideLeft 15s linear infinite;
+    }
 
-@keyframes slideLeft {
-  from {
-    transform: translateX(0);
-  }
+    @keyframes slideLeft {
+      from {
+        transform: translateX(0);
+      }
 
-  to {
-    transform: translateX(-50%);
-  }
-}
+      to {
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 min-h-screen">
 
   <div class="max-w-xl mx-auto p-6 pt-12">
@@ -38,87 +41,101 @@
     </div>
 
     <!-- FORM -->
-    <div class="bg-white/90 backdrop-blur p-6 rounded-xl shadow-xl border border-gray-100">
-      <label class="block text-sm font-semibold text-gray-700">Nama lengkap</label>
-      <div class="mt-2 flex gap-2">
-        <input id="searchName" class="flex-1 px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-400"
-          placeholder="Contoh: Budi Setiawan" />
-        <button id="btnSearch" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow">
-          Cari
-        </button>
-      </div>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
 
-      <div id="result" class="mt-5 hidden"></div>
+<label class="block text-sm font-semibold text-gray-700">Nama lengkap</label>
+
+<div class="mt-2 flex items-center gap-3">
+  <input id="searchName"
+    class="flex-2 px-4 py-2 rounded-lg border w-full focus:ring-2 focus:ring-blue-400"
+    placeholder="Contoh: Budi Setiawan" />
+
+  <button id="btnSearch"
+    class="flex-2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center">
+    
+    <lord-icon
+      src="https://cdn.lordicon.com/vhdgmtyj.json"
+      trigger="hover"
+      colors="primary:#e4e4e4"
+      style="width:28px;height:28px">
+    </lord-icon>
+
+  </button>
+</div>
+
+
+
+    <div id="result" class="mt-5 hidden"></div>
+  </div>
+
+  <div class="mt-10 text-center text-gray-600">
+    <p class="text-sm">Butuh verifikasi oleh panitia? Tunjukkan QR pada halaman sukses ke petugas.</p>
+  </div>
+
+  <!-- SPONSOR -->
+  <div class="mt-10 text-center text-gray-600 overflow-hidden relative">
+    <p class="text-sm font-semibold mb-3">Didukung oleh:</p>
+
+    <div class="sponsor-slider flex items-center gap-10">
+      <!-- DUPLICATE LIST 2x untuk looping -->
+      <img src="./assets/img/1.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/2.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/3.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/4.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/5.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/6.png" class="h-12 grayscale hover:grayscale-0 transition" />
+
+      <!-- COPY kedua untuk infinite scroll -->
+      <img src="./assets/img/1.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/2.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/3.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/4.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/5.png" class="h-12 grayscale hover:grayscale-0 transition" />
+      <img src="./assets/img/6.png" class="h-12 grayscale hover:grayscale-0 transition" />
     </div>
-
-    <div class="mt-10 text-center text-gray-600">
-      <p class="text-sm">Butuh verifikasi oleh panitia? Tunjukkan QR pada halaman sukses ke petugas.</p>
-    </div>
-
-    <!-- SPONSOR -->
-    <div class="mt-10 text-center text-gray-600 overflow-hidden relative">
-      <p class="text-sm font-semibold mb-3">Didukung oleh:</p>
-
-      <div class="sponsor-slider flex items-center gap-10">
-        <!-- DUPLICATE LIST 2x untuk looping -->
-        <img src="./assets/img/1.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/2.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/3.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/4.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/5.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/6.png" class="h-12 grayscale hover:grayscale-0 transition" />
-
-        <!-- COPY kedua untuk infinite scroll -->
-        <img src="./assets/img/1.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/2.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/3.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/4.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/5.png" class="h-12 grayscale hover:grayscale-0 transition" />
-        <img src="./assets/img/6.png" class="h-12 grayscale hover:grayscale-0 transition" />
-      </div>
-    </div>
+  </div>
 
   </div>
 
-<script type="module">
-  import { db, storage } from '/firebase.js'; // pastikan path sesuai
-  import { collection, getDocs, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-  import { ref, uploadString, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+  <script type="module">
+    import { db, storage } from '/firebase.js'; // pastikan path sesuai
+    import { collection, getDocs, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { ref, uploadString, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
-  const elName = document.getElementById('searchName');
-  const btnSearch = document.getElementById('btnSearch');
-  const result = document.getElementById('result');
+    const elName = document.getElementById('searchName');
+    const btnSearch = document.getElementById('btnSearch');
+    const result = document.getElementById('result');
 
-  const norm = s => (s||'').toString().trim().toLowerCase();
+    const norm = s => (s || '').toString().trim().toLowerCase();
 
-  async function findParticipantByName(name) {
-    // ambil seluruh peserta dan match case-insensitive pada field "nama"
-    const snaps = await getDocs(collection(db, 'peserta'));
-    const nrm = norm(name);
-    for (const s of snaps.docs) {
-      const data = s.data();
-      if (norm(data.nama) === nrm) return { id: s.id, data };
+    async function findParticipantByName(name) {
+      // ambil seluruh peserta dan match case-insensitive pada field "nama"
+      const snaps = await getDocs(collection(db, 'peserta'));
+      const nrm = norm(name);
+      for (const s of snaps.docs) {
+        const data = s.data();
+        if (norm(data.nama) === nrm) return { id: s.id, data };
+      }
+      return null;
     }
-    return null;
-  }
 
-  btnSearch.addEventListener('click', async () => {
-    const name = elName.value.trim();
-    if (!name) return alert('Masukkan nama.');
-    result.classList.add('hidden');
-    result.innerHTML = '';
+    btnSearch.addEventListener('click', async () => {
+      const name = elName.value.trim();
+      if (!name) return alert('Masukkan nama.');
+      result.classList.add('hidden');
+      result.innerHTML = '';
 
-    const found = await findParticipantByName(name);
-    if (!found) {
+      const found = await findParticipantByName(name);
+      if (!found) {
+        result.classList.remove('hidden');
+        result.innerHTML = `<div class="p-4 bg-red-100 border border-red-300 rounded-lg text-red-700 font-semibold">❌ Nama tidak terdaftar. Hubungi panitia.</div>`;
+        // optional: suara notifikasi bisa ditambahkan
+        return;
+      }
+
+      // tampilkan info & tombol registrasi ulang
       result.classList.remove('hidden');
-      result.innerHTML = `<div class="p-4 bg-red-100 border border-red-300 rounded-lg text-red-700 font-semibold">❌ Nama tidak terdaftar. Hubungi panitia.</div>`;
-      // optional: suara notifikasi bisa ditambahkan
-      return;
-    }
-
-    // tampilkan info & tombol registrasi ulang
-    result.classList.remove('hidden');
-    result.innerHTML = `
+      result.innerHTML = `
       <div id="card" class="p-5 bg-white border rounded-lg shadow">
         <div class="flex justify-between items-start">
           <div>
@@ -137,31 +154,32 @@
       </div>
     `;
 
-    const btnReg = document.getElementById('btnReg');
-    if (btnReg) {
-      btnReg.addEventListener('click', async () => {
-        // update peserta -> registered true
-        await updateDoc(doc(db, 'peserta', found.id), {
-          registered: true,
-          registeredAt: new Date().toISOString()
+      const btnReg = document.getElementById('btnReg');
+      if (btnReg) {
+        btnReg.addEventListener('click', async () => {
+          // update peserta -> registered true
+          await updateDoc(doc(db, 'peserta', found.id), {
+            registered: true,
+            registeredAt: new Date().toISOString()
+          });
+          // redirect ke halaman success (QR akan di-generate di success)
+          localStorage.setItem('last_registered', found.id);
+          window.location.href = '/success.html?id=' + encodeURIComponent(found.id);
         });
-        // redirect ke halaman success (QR akan di-generate di success)
-        localStorage.setItem('last_registered', found.id);
-        window.location.href = '/success.html?id=' + encodeURIComponent(found.id);
-      });
-    }
+      }
 
-    document.getElementById('btnScreenshot').addEventListener('click', async () => {
-      const node = document.getElementById('card');
-      const canvas = await html2canvas(node, { scale: 3, backgroundColor: null });
-      const png = canvas.toDataURL('image/png');
-      // upload ke storage sebagai bukti (opsional)
-      const sref = ref(storage, `proofs/${found.id}_${Date.now()}.png`);
-      await uploadString(sref, png.split(',')[1], 'base64', { contentType: 'image/png' });
-      const url = await getDownloadURL(sref);
-      alert('Screenshot tersimpan. URL:\n' + url);
+      document.getElementById('btnScreenshot').addEventListener('click', async () => {
+        const node = document.getElementById('card');
+        const canvas = await html2canvas(node, { scale: 3, backgroundColor: null });
+        const png = canvas.toDataURL('image/png');
+        // upload ke storage sebagai bukti (opsional)
+        const sref = ref(storage, `proofs/${found.id}_${Date.now()}.png`);
+        await uploadString(sref, png.split(',')[1], 'base64', { contentType: 'image/png' });
+        const url = await getDownloadURL(sref);
+        alert('Screenshot tersimpan. URL:\n' + url);
+      });
     });
-  });
-</script>
+  </script>
 </body>
+
 </html>
