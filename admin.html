@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="id">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,65 +9,90 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  .card {
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 1.5rem;
-  }
+  <style>
+    .card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+      border: 1px solid #f1f5f9;
+    }
 
-  .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    transition: 0.2s;
-  }
+    .input {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      transition: 0.25s;
+    }
 
-  .btn-primary {
-    background: #2563eb;
-    color: white;
-  }
-  .btn-primary:hover { background: #1d4ed8; }
+    .input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
 
-  .btn-danger {
-    background: #dc2626;
-    color: white;
-  }
-  .btn-danger:hover { background: #b91c1c; }
+    .btn {
+      padding: 0.55rem 1.1rem;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
 
-  .btn-green {
-    background: #16a34a;
-    color: white;
-  }
-  .btn-green:hover { background: #15803d; }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
 
-  .btn-yellow {
-    background: #eab308;
-    color: white;
-  }
-  .btn-yellow:hover { background: #ca8a04; }
+    .btn-primary:hover {
+      background: #1e40af;
+    }
 
-  .input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-  }
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
 
-  /* Scroll nice */
-  #list::-webkit-scrollbar {
-    width: 6px;
-  }
-  #list::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-  }
-</style>
+    .btn-danger:hover {
+      background: #991b1b;
+    }
+
+    .btn-green {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-green:hover {
+      background: #15803d;
+    }
+
+    .btn-yellow {
+      background: #eab308;
+      color: white;
+    }
+
+    .btn-yellow:hover {
+      background: #ca8a04;
+    }
+
+    #list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #list::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    /* Hover list item */
+    .list-item:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+  </style>
 
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-slate-100 min-h-screen">
 
   <!-- LOADING -->
   <div id="loading" class="fixed inset-0 flex items-center justify-center bg-white text-xl font-semibold z-50">
@@ -78,10 +104,16 @@
 
     <!-- HEADER -->
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold">Admin Dashboard</h1>
+      <h1 class="text-3xl font-bold text-slate-800">Admin Dashboard</h1>
+
       <div class="flex gap-3">
-        <button id="btnRefresh" class="btn btn-primary">Refresh</button>
-        <button id="btnLogout" class="btn btn-danger">Logout</button>
+        <button id="btnRefresh" class="btn btn-primary flex items-center gap-2">
+          🔄 Refresh
+        </button>
+
+        <button id="btnLogout" class="btn btn-danger flex items-center gap-2">
+          🚪 Logout
+        </button>
       </div>
     </div>
 
@@ -92,35 +124,38 @@
 
         <!-- IMPORT BOX -->
         <div class="card">
-          <h2 class="text-xl font-semibold mb-4">Import Data</h2>
+          <h2 class="text-xl font-semibold mb-4 text-slate-800">Import Data</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <div>
-              <div class="font-semibold mb-2">Import Participants (.xlsx)</div>
+              <div class="font-semibold mb-2">Import Peserta (.xlsx)</div>
               <input id="fileParticipants" type="file" accept=".xlsx" class="input">
-              <button id="importParticipants" class="btn btn-green mt-2 w-full">Import Peserta</button>
+              <button id="importParticipants" class="btn btn-green mt-3 w-full shadow-sm">Import Peserta</button>
             </div>
 
             <div>
               <div class="font-semibold mb-2">Import Doorprize (.xlsx)</div>
               <input id="fileDoorprize" type="file" accept=".xlsx" class="input">
-              <button id="importDoorprizes" class="btn btn-yellow mt-2 w-full">Import Doorprize</button>
+              <button id="importDoorprizes" class="btn btn-yellow mt-3 w-full shadow-sm">Import Doorprize</button>
               <p class="text-xs text-gray-500 mt-2">Kolom Excel: code / number / nomor atau kolom pertama</p>
             </div>
 
           </div>
         </div>
 
-        <!-- SEARCH & REMAINING -->
+        <!-- SEARCH & LIST -->
         <div class="card">
           <div class="flex justify-between items-center mb-4">
-            <input id="searchAdmin" class="input w-64" placeholder="Cari nama...">
-            <span class="text-sm text-gray-600">Sisa Doorprize: <b id="remaining">-</b></span>
+            <input id="searchAdmin" class="input w-64" placeholder="Cari nama peserta...">
+            <span class="text-sm text-gray-600">
+              Sisa Doorprize:
+              <b id="remaining" class="text-indigo-600">-</b>
+            </span>
           </div>
 
           <!-- LIST -->
-          <div id="list" class="space-y-3 max-h-[60vh] overflow-auto"></div>
+          <div id="list" class="space-y-3 max-h-[63vh] overflow-auto pr-2"></div>
         </div>
 
       </div>
@@ -129,220 +164,271 @@
       <div class="space-y-6">
 
         <div class="card">
-          <h3 class="text-lg font-semibold mb-3">Statistik</h3>
-          <div id="stats">Memuat...</div>
+          <h3 class="text-lg font-semibold mb-3 text-slate-800">Statistik</h3>
+          <div id="stats" class="text-slate-700">Memuat...</div>
         </div>
 
         <div class="card">
-          <h3 class="text-lg font-semibold mb-3">Peringatan Duplicate Attempts</h3>
-          <div id="alerts"></div>
+          <h3 class="text-lg font-semibold mb-3 text-slate-800">Peringatan Duplicate Attempts</h3>
+          <div id="alerts" class="space-y-3"></div>
         </div>
 
       </div>
 
     </div>
-
   </div>
 
-<script type="module">
-  import { auth, db } from '/firebase.js';
-  import {
-    onAuthStateChanged, signOut
-  } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-  import {
-    collection, getDocs, doc, setDoc, updateDoc, query, where, limit, runTransaction
-  } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+  <script type="module">
+    import { auth, db } from '/firebase.js';
 
-  // ❌ HAPUS ini:
-  // import XLSX from "https://unpkg.com/xlsx@0.18.5/dist/xlsx.mjs";
-  // ✔ UMD XLSX sudah otomatis tersedia sebagai global variable `XLSX`
+    // Firestore API dari firebase.js
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-  const loading = document.getElementById('loading');
-  const content = document.getElementById('content');
-  const listEl = document.getElementById('list');
-  const statsEl = document.getElementById('stats');
-  const alertsEl = document.getElementById('alerts');
-  const remainingEl = document.getElementById('remaining');
+    import {
+      collection,
+      getDocs,
+      doc,
+      setDoc,
+      updateDoc,
+      query,
+      where,
+      limit,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+    const loading = document.getElementById('loading');
+    const content = document.getElementById('content');
+    const listEl = document.getElementById('list');
+    const statsEl = document.getElementById('stats');
+    const alertsEl = document.getElementById('alerts');
+    const remainingEl = document.getElementById('remaining');
 
-  /* ========== AUTH CHECK ========== */
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) return location.href = '/login';
+    /* ------------------------------
+          CHECK ADMIN AUTH
+    ------------------------------- */
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return (location.href = "/login");
 
-    const admins = await getDocs(collection(db, 'admins'));
-    const isAdmin = admins.docs.some(d => d.id === user.uid);
+      const adminSnaps = await getDocs(collection(db, "admins"));
+      const isAdmin = adminSnaps.docs.some((d) => d.id === user.uid);
 
-    if (!isAdmin) {
-      alert('Akses ditolak: Anda bukan admin.');
-      return location.href = '/login';
-    }
+      if (!isAdmin) {
+        alert("Akses ditolak: Anda bukan admin.");
+        return (location.href = "/login");
+      }
 
-    loading.classList.add('hidden');
-    content.classList.remove('hidden');
+      loading.classList.add("hidden");
+      content.classList.remove("hidden");
 
-    loadAll();
-  });
-
-  document.getElementById('btnLogout').onclick = () => signOut(auth);
-  document.getElementById('btnRefresh').onclick = () => loadAll();
-
-
-  /* ========== IMPORT PARTICIPANTS ========== */
-  document.getElementById('importParticipants').onclick = async () => {
-    const file = fileParticipants.files[0];
-    if (!file) return alert('Pilih file .xlsx');
-
-    const buf = await file.arrayBuffer();
-    const wb = XLSX.read(buf, { type: 'array' }); // ← Menggunakan UMD
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-
-    let created = 0;
-    for (const r of rows) {
-      const name = (r.name || r.nama || '').toString().trim();
-      if (!name) continue;
-
-      const id = name.toLowerCase().replace(/\s+/g, "_") + "_" + Math.random().toString(36).slice(2, 6);
-
-      await setDoc(doc(db, "participants", id), {
-        name,
-        email: r.email || "",
-        phone: r.phone || "",
-        registered: false,
-        doubleAttempts: 0
-      });
-
-      created++;
-    }
-
-    alert("Import peserta selesai: " + created);
-    loadAll();
-  };
-
-
-  /* ========== IMPORT DOORPRIZES =========== */
-  document.getElementById('importDoorprizes').onclick = async () => {
-    const file = fileDoorprize.files[0];
-    if (!file) return alert('Pilih file .xlsx');
-
-    const buf = await file.arrayBuffer();
-    const wb = XLSX.read(buf, { type: 'array' });
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
-
-    let created = 0;
-    for (const r of rows) {
-      const code = (r.code || r.number || r.nomor || Object.values(r)[0]).toString().trim();
-      if (!code) continue;
-
-      const id = "dp_" + code;
-
-      await setDoc(doc(db, "doorprizes", id), {
-        code,
-        assignedTo: null,
-        assignedAt: null
-      }, { merge: true });
-
-      created++;
-    }
-
-    alert("Import doorprize selesai: " + created);
-    loadAll();
-  };
-
-
-  /* ========== LOAD ALL DASHBOARD DATA ========== */
-  async function loadAll() {
-    const pSnaps = await getDocs(collection(db, 'participants'));
-    const dpSnap = await getDocs(query(collection(db, 'doorprizes'), where('assignedTo', '==', null)));
-
-    listEl.innerHTML = '';
-
-    let total = 0, reg = 0;
-
-    pSnaps.forEach(s => {
-      total++;
-      const d = s.data();
-      if (d.registered) reg++;
-
-      listEl.innerHTML += `
-        <div class="flex justify-between items-center p-3 border rounded-lg bg-gray-50">
-          <div>
-            <div class="font-semibold">${d.name}</div>
-            <div class="text-xs text-gray-500">${d.email || ''} ${d.phone || ''}</div>
-          </div>
-          <div>
-            ${d.registered 
-              ? `<span class="px-3 py-1 bg-green-200 text-green-700 rounded-lg">Sudah</span>`
-              : `<button data-id="${s.id}" class="mark btn btn-yellow">Tandai & Assign</button>`
-            }
-          </div>
-        </div>
-      `;
+      loadAll();
     });
 
-    remainingEl.innerText = dpSnap.size;
+    document.getElementById("btnLogout").onclick = () => signOut(auth);
+    document.getElementById("btnRefresh").onclick = () => loadAll();
 
-    statsEl.innerHTML = `
+
+    /* ------------------------------
+          IMPORT PESERTA
+    ------------------------------- */
+    document.getElementById("importParticipants").onclick = async () => {
+  const file = fileParticipants.files[0];
+  if (!file) return alert("Pilih file .xlsx");
+
+  const buf = await file.arrayBuffer();
+  const wb = XLSX.read(buf, { type: "array" });
+  const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+
+  let created = 0;
+
+  for (const r of rows) {
+    const nama = (r["Nama"] || "").toString().trim();
+    if (!nama) continue;
+
+    const id =
+      nama.toLowerCase().replace(/\s+/g, "_") +
+      "_" +
+      Math.random().toString(36).slice(2, 6);
+
+    await setDoc(doc(db, "peserta", id), {
+      nama,
+      umur: r["Umur"] || "",
+      hp: r["Nomor HP"] || "",
+      alamat: r["Alamat (contoh: kirana)"] || "",
+      ukuran: r["Ukuran Baju"] || "",
+      persetujuan: r["Panitia tidak bertanggung jawab atas gangguan kesehatan peserta yang terjadi selama kegiatan berlangsung."] === "Saya Setuju",
+      bukti: r["Bukti Transfer Pembayaran"] || "",
+      createdAt: new Date().toISOString()
+    });
+
+    created++;
+  }
+
+  alert("Import peserta selesai: " + created);
+  loadAll();
+};
+
+
+    /* ------------------------------
+          IMPORT DOORPRIZE
+    ------------------------------- */
+    document.getElementById("importDoorprizes").onclick = async () => {
+      const file = fileDoorprize.files[0];
+      if (!file) return alert("Pilih file .xlsx");
+
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: "array" });
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
+        defval: "",
+      });
+
+      let created = 0;
+
+      for (const r of rows) {
+        const code =
+          (r.code || r.number || r.nomor || Object.values(r)[0])
+            .toString()
+            .trim();
+
+        if (!code) continue;
+
+        await setDoc(
+          doc(db, "doorprizes", "dp_" + code),
+          {
+            code,
+            assignedTo: null,
+            assignedAt: null,
+          },
+          { merge: true }
+        );
+
+        created++;
+      }
+
+      alert("Import doorprize selesai: " + created);
+      loadAll();
+    };
+
+
+    /* ------------------------------
+            LOAD ALL DATA
+    ------------------------------- */
+    async function loadAll() {
+      listEl.innerHTML = `<div class="text-center text-gray-500">Memuat...</div>`;
+
+      const pesertaSnap = await getDocs(collection(db, "peserta"));
+      const dpSnap = await getDocs(
+        query(collection(db, "doorprizes"), where("assignedTo", "==", null))
+      );
+
+      listEl.innerHTML = "";
+
+      let total = 0,
+        reg = 0;
+
+       pesertaSnap.forEach((doc) => {
+    const d = doc.data();
+
+    listEl.innerHTML += `
+      <div class="list-item flex justify-between items-center p-4 border rounded-lg bg-white hover:shadow">
+        
+        <div class="flex-1">
+          <div class="font-semibold text-slate-800 text-lg">${d.nama}</div>
+
+          <div class="text-sm text-gray-600 mt-1">
+            <b>Umur:</b> ${d.umur || "-"}<br>
+            <b>Nomor HP:</b> ${d.hp || "-"}<br>
+            <b>Alamat:</b> ${d.alamat || "-"}<br>
+            <b>Ukuran Baju:</b> ${d.ukuran || "-"}<br>
+            <b>Persetujuan:</b> ${d.persetujuan ? "Saya Setuju" : "Tidak"}<br>
+          </div>
+        </div>
+
+        <div class="ml-4">
+          ${
+            d.bukti
+              ? `<img src="${d.bukti}" class="w-24 h-24 object-cover rounded border"/>`
+              : `<span class="text-xs text-gray-400">Tidak ada bukti</span>`
+          }
+        </div>
+
+      </div>
+    `;
+  });
+
+      remainingEl.innerText = dpSnap.size;
+
+      statsEl.innerHTML = `
       Total peserta: <b>${total}</b><br>
       Sudah registrasi: <b class="text-green-600">${reg}</b><br>
-      Doorprize tersisa: <b>${dpSnap.size}</b>
+      Doorprize tersisa: <b class="text-indigo-600">${dpSnap.size}</b>
     `;
 
-    /* ALERTS */
-    alertsEl.innerHTML = '';
-    const alertSnaps = await getDocs(query(collection(db,'participants'), where('doubleAttempts','>',0)));
-    alertSnaps.forEach(a=>{
-      const d = a.data();
-      alertsEl.innerHTML += `
-        <div class="p-3 border rounded-lg bg-red-50">
+
+      /* DUPLICATE ATTEMPTS */
+      alertsEl.innerHTML = "";
+      const alertSnaps = await getDocs(
+        query(collection(db, "participants"), where("doubleAttempts", ">", 0))
+      );
+
+      alertSnaps.forEach((a) => {
+        const d = a.data();
+        alertsEl.innerHTML += `
+        <div class="p-3 border rounded-lg bg-red-50 shadow-sm">
           <div class="font-semibold">${d.name}</div>
           <div class="text-red-600 text-sm">Percobaan ganda: ${d.doubleAttempts}</div>
         </div>
       `;
-    });
-
-    /* Attach mark button */
-    document.querySelectorAll('.mark').forEach(btn => {
-      btn.onclick = () => assignDoorprizeAdmin(btn.dataset.id);
-    });
-  }
-
-
-  /* ========== ADMIN ASSIGN DOORPRIZE ========== */
-  async function assignDoorprizeAdmin(participantId) {
-    const pRef = doc(db, 'participants', participantId);
-
-    await runTransaction(db, async (tx) => {
-      const pSnap = await tx.get(pRef);
-      const data = pSnap.data();
-
-      if (!data) throw new Error("Peserta tidak ditemukan.");
-      if (data.doorprize) throw new Error("Sudah memiliki doorprize.");
-
-      const qSnap = await tx.get(query(collection(db, 'doorprizes'), where('assignedTo', '==', null), limit(20)));
-
-      if (qSnap.empty) throw new Error("Doorprize habis.");
-
-      const docs = qSnap.docs;
-      const chosen = docs[Math.floor(Math.random() * docs.length)];
-
-      tx.update(chosen.ref, {
-        assignedTo: participantId,
-        assignedAt: new Date().toISOString()
       });
 
-      tx.update(pRef, {
-        registered: true,
-        registeredAt: new Date().toISOString(),
-        doorprize: chosen.data().code
+      document.querySelectorAll(".mark").forEach((btn) => {
+        btn.onclick = () => assignDoorprizeAdmin(btn.dataset.id);
       });
-    });
-
-    alert("Doorprize berhasil di-assign.");
-    loadAll();
-  }
-
-</script>
+    }
 
 
+    /* ------------------------------
+          ASSIGN DOORPRIZE
+    ------------------------------- */
+    async function assignDoorprizeAdmin(participantId) {
+      const pRef = doc(db, "participants", participantId);
+
+      await runTransaction(db, async (tx) => {
+        const pSnap = await tx.get(pRef);
+        const data = pSnap.data();
+
+        if (!data) throw "Peserta tidak ditemukan.";
+        if (data.doorprize) throw "Sudah memiliki doorprize.";
+
+        const qSnap = await tx.get(
+          query(collection(db, "doorprizes"), where("assignedTo", "==", null), limit(50))
+        );
+
+        if (qSnap.empty) throw "Doorprize habis.";
+
+        const docs = qSnap.docs;
+        const chosen = docs[Math.floor(Math.random() * docs.length)];
+
+        // Update doorprize doc
+        tx.update(chosen.ref, {
+          assignedTo: participantId,
+          assignedAt: new Date().toISOString(),
+        });
+
+        // Update participant
+        tx.update(pRef, {
+          registered: true,
+          registeredAt: new Date().toISOString(),
+          doorprize: chosen.data().code,
+        });
+      });
+
+      alert("Doorprize berhasil di-assign.");
+      loadAll();
+    }
+  </script>
 </body>
+
 </html>
