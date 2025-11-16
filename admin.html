@@ -393,62 +393,24 @@ function stopQrScanner(){
 }
 
 async function onQrScanned(text){
-  // text may be:
-  // - plain doc id (e.g. nama_satu_xxx)
-  // - 'peserta/<id>'
-  // - a url including id
   let id = text;
-  if(text.includes('/')) {
-    // try common patterns
-    const split = text.split('/');
-    id = split[split.length-1];
+
+  // Jika QR berisi URL, ambil ID paling belakang
+  if(text.includes('/')) id = text.split('/').pop();
+
+  // Cari di array cache peserta
+  const found = allPeserta.find(p => p.id === id);
+
+  if(found){
+    stopQrScanner();
+    qrModal.style.display = 'none';
+    location.href = `/konfirmasi.html?id=${found.id}`;
+    return;
   }
 
-  // try to fetch peserta doc
-  try {
-    const snap = await getDocs(query(collection(db, 'peserta'))); // fallback to search by id or nama
-    // first try direct doc read
-    try {
-      const docRef = doc(db, 'peserta', id);
-      // getDoc import not used above; use getDocs fallback by searching the cache
-      // simpler approach: find in allPeserta cache
-      const found = allPeserta.find(p => p.id === id || p.nama === id);
-      if(found){
-        // show modal confirmation and optionally mark registered
-        const doMark = confirm(`Peserta ditemukan:\n\n${found.nama}\n\nTandai sebagai registrasi ulang sekarang?`);
-        if(doMark){
-          await setDoc(doc(db,'peserta', found.id), { registered: true, registeredAt: new Date().toISOString() }, { merge: true });
-          toast('Peserta ditandai ter-registrasi');
-          await loadAll();
-        } else {
-          toast('Scan selesai — tidak ditandai');
-        }
-        return;
-      }
-    } catch(e){
-      // ignore
-    }
-
-    // if not found by id, try search by name equal
-    const nameMatch = allPeserta.find(p => (p.nama||'').toLowerCase() === id.toLowerCase());
-    if(nameMatch){
-      const doMark = confirm(`Peserta ditemukan:\n\n${nameMatch.nama}\n\nTandai sebagai registrasi ulang sekarang?`);
-      if(doMark){
-        await setDoc(doc(db,'peserta', nameMatch.id), { registered: true, registeredAt: new Date().toISOString() }, { merge: true });
-        toast('Peserta ditandai ter-registrasi');
-        await loadAll();
-      } else {
-        toast('Scan selesai — tidak ditandai');
-      }
-      return;
-    }
-
-    alert('QR ter-scan, tetapi peserta tidak ditemukan secara langsung. Pastikan QR berisi ID dokumen peserta atau nama tepat.');
-  } catch(err){
-    console.error(err);
-    alert('Error saat memproses hasil scan: ' + err.message);
-  }
+  alert("Peserta tidak ditemukan. Pastikan QR berisi ID peserta.");
 }
+
 
 /* ========== Other helpers: refresh & logout ========== */
 btnRefresh.addEventListener('click', loadAll);

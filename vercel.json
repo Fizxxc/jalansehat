@@ -7,6 +7,7 @@
     { "source": "/login",   "destination": "/login.html" },
     { "source": "/register","destination": "/register.html" },
     { "source": "/success", "destination": "/success.html" },
+    { "source": "/konfirmasi", "destination": "/konfirmasi.html" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
     { "source": "/js/(.*)",     "destination": "/js/$1" },
     { "source": "/(.*)",        "destination": "/$1" }
