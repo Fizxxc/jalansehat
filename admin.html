@@ -402,7 +402,7 @@ async function onQrScanned(text){
   if(found){
     stopQrScanner();
     qrModal.style.display = 'none';
-    location.href = `/konfirmasi.html?id=${found.id}`;
+    location.href = `/konfirmasi-admin?id=${found.id}`;
     return;
   }
 

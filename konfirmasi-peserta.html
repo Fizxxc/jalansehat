@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Pendaftaran</title>
+
+  <script type="module">
+    import { db } from "./firebase.js";
+    import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const id = new URLSearchParams(location.search).get("id");
+
+    const namaEl = document.getElementById("nama");
+    const statusBox = document.getElementById("statusBox");
+
+    const loadingUI = `
+      <div class="loader"></div>
+      <p class="mt">Menunggu konfirmasi admin...</p>
+    `;
+
+    const successUI = `
+      <div class="checkmark">
+        <svg viewBox="0 0 52 52">
+          <path d="M14 27l7 7 17-17"/>
+        </svg>
+      </div>
+      <p class="mt text-success">Pendaftaran Telah Dikonfirmasi</p>
+    `;
+
+    onSnapshot(doc(db, "peserta", id), (snap) => {
+      if (!snap.exists()) return;
+      const data = snap.data();
+
+      namaEl.textContent = data.nama;
+      statusBox.innerHTML = (data.status === "confirmed") ? successUI : loadingUI;
+    });
+  </script>
+
+  <style>
+    body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+    .mt { margin-top: 15px; color: gray; }
+
+    .loader {
+      width: 60px; height: 60px;
+      border: 6px solid #ddd;
+      border-top-color: #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .checkmark {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: #4CAF50;
+      display: flex; justify-content: center; align-items: center;
+      animation: pop 0.4s ease-out forwards;
+      margin: auto;
+    }
+    .checkmark svg {
+      width: 50px; height: 50px;
+      stroke: #fff; stroke-width: 5;
+      fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 48; stroke-dashoffset: 48;
+      animation: draw 0.6s forwards 0.3s;
+    }
+
+    @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+    @keyframes draw { 100% { stroke-dashoffset: 0; } }
+
+    .text-success { color: #2ecc71; font-size: 18px; font-weight: 600; }
+  </style>
+
+</head>
+
+<body>
+  <h2>Status Pendaftaran</h2>
+  <p id="nama" style="color: #444; margin-bottom: 20px;"></p>
+
+  <div id="statusBox"></div>
+</body>
+</html>
