@@ -1,7 +1,26 @@
-// Encoded Database By FizzxDevv
-(function(){
-  const decode = Function("return decodeURIComponent(escape(atob('Ly8gRmlyZWJhc2UgOSBNb2R1bGFyIC0gVmVyc2kgU3RhYmlsCgppbXBvcnQgeyBpbml0aWFsaXplQXBwIH0gZnJvbSAiaHR0cHM6Ly93d3cuZ3N0YXRpYy5jb20vZmlyZWJhc2Vqcy8xMC4xMi4wL2ZpcmViYXNlLWFwcC5qcyI7CmltcG9ydCB7IGdldEF1dGggfSBmcm9tICJodHRwczovL3d3dy5nc3RhdGljLmNvbS9maXJlYmFzZWpzLzEwLjEyLjAvZmlyZWJhc2UtYXV0aC5qcyI7CmltcG9ydCB7IGdldEZpcmVzdG9yZSB9IGZyb20gImh0dHBzOi8vd3d3LmdzdGF0aWMuY29tL2ZpcmViYXNlanMvMTAuMTIuMC9maXJlYmFzZS1maXJlc3RvcmUuanMiOwppbXBvcnQgeyBnZXRTdG9yYWdlIH0gZnJvbSAiaHR0cHM6Ly93d3cuZ3N0YXRpYy5jb20vZmlyZWJhc2Vqcy8xMC4xMi4wL2ZpcmViYXNlLXN0b3JhZ2UuanMiOwoKY29uc3QgZmlyZWJhc2VDb25maWcgPSB7CiAgYXBpS2V5OiAiQUl6YVN5QWpPdTUwYl9DWDRIMi0wZEE2MkNXZ1ZRd1d0eWcwOGFnIiwKICBhdXRoRG9tYWluOiAiZmVzdGFyYS1yZWdpc3QuZmlyZWJhc2VhcHAuY29tIiwKICBwcm9qZWN0SWQ6ICJmZXN0YXJhLXJlZ2lzdCIsCiAgc3RvcmFnZUJ1Y2tldDogImZlc3RhcmEtcmVnaXN0LmZpcmViYXNlc3RvcmFnZS5hcHAiLAogIG1lc3NhZ2luZ1NlbmRlcklkOiAiMTUyMzc2NDQzNDM4IiwKICBhcHBJZDogIjE6MTUyMzc2NDQzNDM4OndlYjpkMGRkMGMxZjBlOTdjNjg1ZGY5NWJmIiwKICBtZWFzdXJlbWVudElkOiAiRy01UDFUQlgySFJCIiwKfTsKCmNvbnN0IGFwcCA9IGluaXRpYWxpemVBcHAoZmlyZWJhc2VDb25maWcpOwoKZXhwb3J0IGNvbnN0IGF1dGggPSBnZXRBdXRoKGFwcCk7CmV4cG9ydCBjb25zdCBkYiA9IGdldEZpcmVzdG9yZShhcHApOwpleHBvcnQgY29uc3Qgc3RvcmFnZSA9IGdldFN0b3JhZ2UoYXBwKTsKCmV4cG9ydCBmdW5jdGlvbiBub3dJU08oKSB7CiAgcmV0dXJuIG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKTsKfQo=')))")();
-  eval(decode);
-})();
+// Firebase 9 Modular - Versi Stabil
 
-//jangan di ubah apapun ini!
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAjOu50b_CX4H2-0dA62CWgVQwWtyg08ag",
+  authDomain: "festara-regist.firebaseapp.com",
+  projectId: "festara-regist",
+  storageBucket: "festara-regist.firebasestorage.app",
+  messagingSenderId: "152376443438",
+  appId: "1:152376443438:web:d0dd0c1f0e97c685df95bf",
+  measurementId: "G-5P1TBX2HRB",
+};
+
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+
+export function nowISO() {
+  return new Date().toISOString();
+}
