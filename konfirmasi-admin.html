@@ -4,45 +4,46 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Konfirmasi Peserta</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
-    body { font-family: sans-serif; padding: 40px; }
-    .card {
-      max-width: 400px;
-      margin: auto;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      animation: fadeIn .4s ease-out;
+    @keyframes fadeInUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .btn {
-      background: #3498db;
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: .3s;
-      font-size: 16px;
-    }
-    .btn:hover { background: #2980b9; transform: scale(1.03); }
+    .fade-in-up { animation: fadeInUp .5s ease-out; }
   </style>
 </head>
 
-<body>
-  <div class="card">
-    <h2>Konfirmasi Peserta</h2>
-    <p id="nama" style="margin-top: 10px; color: gray;">Memuat...</p>
-    <button class="btn" onclick="confirmPeserta()">Konfirmasi</button>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-50">
+
+  <div class="fade-in-up max-w-md w-full p-8 rounded-2xl shadow-xl backdrop-blur-xl bg-white/60 border border-white/40 text-center">
+
+    <div class="flex justify-center">
+      <lord-icon
+        src="https://cdn.lordicon.com/hrqqslfe.json"
+        trigger="loop"
+        state="hover-rotate"
+        colors="primary:#3b82f6,secondary:#60a5fa"
+        style="width:120px;height:120px">
+      </lord-icon>
+    </div>
+
+    <h2 class="text-2xl font-bold text-blue-700 mt-2">Konfirmasi Peserta</h2>
+
+    <p id="nama" class="text-gray-700 mt-2 text-lg">Memuat data...</p>
+
+    <button id="btnKonfir"
+      class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 hover:scale-[1.03] active:scale-95 transition">
+      Konfirmasi Sekarang
+    </button>
+
   </div>
 
-  <!-- SCRIPT DIPINDAH KE BAWAH -->
+  <!-- SCRIPT FIREBASE -->
   <script type="module">
     import { db } from "/firebase.js";
     import { doc, getDoc, updateDoc } 
@@ -50,39 +51,53 @@
 
     const id = new URLSearchParams(location.search).get("id");
 
+    // --- LOAD DATA ---
     async function loadData(){
       const snap = await getDoc(doc(db, "peserta", id));
       if(!snap.exists()){
         document.getElementById("nama").textContent = "Peserta tidak ditemukan";
         return;
       }
-
       document.getElementById("nama").textContent = snap.data().nama;
     }
 
-    window.onload = loadData;
+    loadData();
 
-    window.confirmPeserta = async function(){
+    // --- KONFIRMASI ---
+    document.getElementById("btnKonfir").onclick = async () => {
+
       Swal.fire({
-        title: "Memproses...",
-        text: "Mohon tunggu",
+        html: `
+          <lord-icon
+            src="https://cdn.lordicon.com/xjovhxra.json"
+            trigger="loop"
+            style="width:100px;height:100px">
+          </lord-icon>
+          <p class="mt-3 text-gray-700 text-lg">Memproses konfirmasi...</p>
+        `,
+        showConfirmButton: false,
         allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
       });
 
-      await updateDoc(doc(db,"peserta", id), {
-        status: "confirmed",
+      await updateDoc(doc(db, "peserta", id), {
+        confirmed: true,
         confirmedAt: new Date().toISOString()
       });
 
       Swal.fire({
-        icon: "success",
-        title: "Berhasil!",
-        text: "Peserta telah dikonfirmasi",
-        timer: 1500,
+        html: `
+          <lord-icon
+            src="https://cdn.lordicon.com/hjeefwhm.json"
+            trigger="loop"
+            style="width:120px;height:120px">
+          </lord-icon>
+          <h2 class="text-xl font-semibold mt-3">Berhasil Dikonfirmasi!</h2>
+          <p class="text-gray-600">Peserta telah disetujui oleh panitia.</p>
+        `,
+        timer: 1800,
         showConfirmButton: false
       });
-    }
+    };
   </script>
 
 </body>
