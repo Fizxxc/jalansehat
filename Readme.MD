@@ -59,4 +59,7 @@ Gunakan hosting HTTPS agar QR & imports berjalan stabil
 <b>❤️ Credits</b>
 
 Project dibuat untuk kebutuhan acara di FESTARA Milenia Hub.
+
 Anda bebas mengembangkan lebih lanjut sesuai kebutuhan.
+
+---
