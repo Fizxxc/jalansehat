@@ -49,8 +49,7 @@
     </div>
 
     <div class="mt-4 text-xs text-gray-500">
-      Jika QR tidak muncul, hubungi developer di WA.
-    </div>
+      Jika QR tidak muncul, hubungi developer di WA. atau langsung ke web kami <a href="https://info-digicraft.vercel.app/" class="text-blue-900"><b>CLICK DISINI!</b></a></div>
 
   </div>
 
@@ -77,14 +76,12 @@ document.getElementById("btnDownload").onclick = () => {
   link.click();
 };
 
-// Tombol cek status
+// Tombol cek status highlight
 document.getElementById("btnCekStatus").onclick = () => {
   const box = document.getElementById("status");
   box.classList.add("highlight");
 
-  // hilangkan efek highlight setelah animasi
   setTimeout(() => box.classList.remove("highlight"), 1200);
-
   box.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
 
@@ -101,10 +98,14 @@ onSnapshot(ref, (snap) => {
   const data = snap.data();
   document.getElementById("nama").textContent = data.nama;
 
-  // ---------------------
-  // STATUS KONFIRMASI
-  // ---------------------
-  if (data.confirmed) {
+  // ----------------------------------
+  //     PERBAIKAN PALING PENTING
+  // ----------------------------------
+  // ADMIN MENGUPDATE: status: "confirmed"
+  // PESERTA MEMBACA:  data.status === "confirmed"
+  // ----------------------------------
+
+  if (data.status === "confirmed") {
     document.getElementById("status").innerHTML = `
       <lord-icon src="https://cdn.lordicon.com/hjeefwhm.json"
         trigger="loop" style="width:150px;height:150px;">
