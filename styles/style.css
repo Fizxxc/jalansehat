@@ -26,7 +26,7 @@ a {
   background: #fff;
   padding: 28px;
   border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .title {
@@ -47,7 +47,8 @@ a {
 /* =====================
    INPUT & FORM ELEMENTS
    ===================== */
-input, select {
+input,
+select {
   width: 100%;
   padding: 12px 14px;
   margin-top: 12px;
@@ -57,10 +58,11 @@ input, select {
   transition: 0.2s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: #4a8bff;
   outline: none;
-  box-shadow: 0 0 4px rgba(74,139,255,0.4);
+  box-shadow: 0 0 4px rgba(74, 139, 255, 0.4);
 }
 
 button {
@@ -80,7 +82,7 @@ button {
 button:hover {
   background: linear-gradient(135deg, #335dff, #4f7cff);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 button.secondary {
@@ -138,7 +140,7 @@ button.secondary:hover {
   background: white;
   padding: 30px;
   border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
 
 .table-box {
@@ -192,7 +194,7 @@ table td {
   background: white;
   padding: 30px;
   border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
@@ -250,3 +252,20 @@ table td {
   font-weight: 600;
 }
 
+/* =====================
+   SPONSOR SLIDER
+   ===================== */
+.sponsor-slider {
+  width: max-content;
+  animation: slideLeft 15s linear infinite;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
