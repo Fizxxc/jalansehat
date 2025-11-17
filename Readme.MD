@@ -1,4 +1,4 @@
-# Sistem Registrasi & Konfirmasi Peserta – 17 Agustus RT 03
+# Sistem Registrasi & Konfirmasi Peserta – FESTARA EVENT
 
 Sistem ini dibuat untuk mempermudah proses **pendaftaran**, **registrasi ulang**, dan **konfirmasi peserta** menggunakan teknologi web modern dan Firestore. Peserta akan mendapatkan **QR Code unik**, dan panitia dapat melakukan konfirmasi langsung melalui halaman admin.
 
@@ -112,3 +112,4 @@ Untuk akses kode asli, kontak:
 WhatsApp: +62 8899-1114-939
 Email    : fizzx404@gmail.com
 ---
+
