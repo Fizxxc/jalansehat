@@ -22,6 +22,7 @@
 
   <div class="fade-in-up max-w-md w-full p-8 rounded-2xl shadow-xl backdrop-blur-xl bg-white/60 border border-white/40 text-center">
 
+    <!-- ICON -->
     <div class="flex justify-center">
       <lord-icon
         src="https://cdn.lordicon.com/hrqqslfe.json"
@@ -37,6 +38,7 @@
     <p id="nama" class="text-gray-700 mt-2 text-lg">Memuat data...</p>
     <p id="status" class="text-gray-600 text-sm"></p>
 
+    <!-- BUTTON KONFIRMASI -->
     <button id="btnKonfir"
       class="hidden mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 hover:scale-[1.03] active:scale-95 transition">
       Konfirmasi Sekarang
@@ -62,7 +64,9 @@
     const statusTeks = document.getElementById("status");
     const btnKonfir = document.getElementById("btnKonfir");
 
-    // --- LOAD DATA ---
+    // ======================
+    // LOAD DATA PESERTA
+    // ======================
     async function loadData(){
       if (!id) {
         nama.textContent = "ID tidak ditemukan!";
@@ -81,23 +85,21 @@
 
       nama.textContent = data.nama || "Tanpa nama";
 
-      // Jika sudah dikonfirmasi
       if (data.confirmed === true) {
-        statusTeks.textContent = "Status: Sudah dikonfirmasi ✔️";
+        statusTeks.innerHTML = `<span class='text-green-600 font-semibold'>Status: Sudah dikonfirmasi ✔️</span>`;
         btnKonfir.classList.add("hidden");
-        return;
+      } else {
+        statusTeks.innerHTML = `<span class='text-red-600 font-semibold'>Status: Belum dikonfirmasi</span>`;
+        btnKonfir.classList.remove("hidden");
       }
-
-      // Jika belum dikonfirmasi
-      statusTeks.textContent = "Status: Belum dikonfirmasi";
-      btnKonfir.classList.remove("hidden");
     }
 
     loadData();
 
-    // --- KONFIRMASI ---
+    // ======================
+    // TOMBOL KONFIRMASI
+    // ======================
     btnKonfir.onclick = async () => {
-
       Swal.fire({
         html: `
           <lord-icon
