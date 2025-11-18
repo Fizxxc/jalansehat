@@ -417,10 +417,6 @@ async function onQrScanned(text){
 }
 
 
-updateDoc(doc(db, "peserta", id), {
-    status: "confirmed"
-});
-
 /* ========== Other helpers: refresh & logout ========== */
 btnRefresh.addEventListener('click', loadAll);
 btnLogout.addEventListener('click', ()=> {
