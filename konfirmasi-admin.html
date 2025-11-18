@@ -35,42 +35,68 @@
     <h2 class="text-2xl font-bold text-blue-700 mt-2">Konfirmasi Peserta</h2>
 
     <p id="nama" class="text-gray-700 mt-2 text-lg">Memuat data...</p>
+    <p id="status" class="text-gray-600 text-sm"></p>
 
     <button id="btnKonfir"
-      class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 hover:scale-[1.03] active:scale-95 transition">
+      class="hidden mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 hover:scale-[1.03] active:scale-95 transition">
       Konfirmasi Sekarang
     </button>
 
     <!-- COPY RIGHT -->
-  <footer>
-    <div class="mt-6 text-center text-xs text-gray-500">
-      &copy; 2025 Festara. All rights reserved. | Devlop by <a href="https://www.instagram.com/fizzx.docx/" class="text-blue-900"><b>FizzxDevv</b></a>
-    </div>
-  </footer>
+    <footer>
+      <div class="mt-6 text-center text-xs text-gray-500">
+        &copy; 2025 Festara. All rights reserved. | Devlop by 
+        <a href="https://www.instagram.com/fizzx.docx/" class="text-blue-900"><b>FizzxDevv</b></a>
+      </div>
+    </footer>
   </div>
 
   <!-- SCRIPT FIREBASE -->
   <script type="module">
     import { db } from "/firebase.js";
-    import { doc, getDoc, updateDoc } 
+    import { doc, getDoc, updateDoc }
       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const id = new URLSearchParams(location.search).get("id");
+    const nama = document.getElementById("nama");
+    const statusTeks = document.getElementById("status");
+    const btnKonfir = document.getElementById("btnKonfir");
 
     // --- LOAD DATA ---
     async function loadData(){
-      const snap = await getDoc(doc(db, "peserta", id));
-      if(!snap.exists()){
-        document.getElementById("nama").textContent = "Peserta tidak ditemukan";
+      if (!id) {
+        nama.textContent = "ID tidak ditemukan!";
         return;
       }
-      document.getElementById("nama").textContent = snap.data().nama;
+
+      const ref = doc(db, "peserta", id);
+      const snap = await getDoc(ref);
+
+      if(!snap.exists()){
+        nama.textContent = "Peserta tidak ditemukan";
+        return;
+      }
+
+      const data = snap.data();
+
+      nama.textContent = data.nama || "Tanpa nama";
+
+      // Jika sudah dikonfirmasi
+      if (data.confirmed === true) {
+        statusTeks.textContent = "Status: Sudah dikonfirmasi ✔️";
+        btnKonfir.classList.add("hidden");
+        return;
+      }
+
+      // Jika belum dikonfirmasi
+      statusTeks.textContent = "Status: Belum dikonfirmasi";
+      btnKonfir.classList.remove("hidden");
     }
 
     loadData();
 
     // --- KONFIRMASI ---
-    document.getElementById("btnKonfir").onclick = async () => {
+    btnKonfir.onclick = async () => {
 
       Swal.fire({
         html: `
@@ -87,7 +113,8 @@
 
       await updateDoc(doc(db, "peserta", id), {
         confirmed: true,
-        confirmedAt: new Date().toISOString()
+        confirmedAt: new Date().toISOString(),
+        status: "confirmed"
       });
 
       Swal.fire({
@@ -102,6 +129,8 @@
         `,
         timer: 1800,
         showConfirmButton: false
+      }).then(() => {
+        location.reload();
       });
     };
   </script>
